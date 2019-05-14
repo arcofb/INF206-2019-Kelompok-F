@@ -5,25 +5,31 @@
         <title></title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        
+        <link rel="stylesheet" href="css/blog.css">
+        <script src="js/style.js"></script>
     </head>
     <body>
 
         <div class="login-page">
             <div class="form">
               <h2>Masuk</h2>
-              <form class="login-for" method="post" action="">
+              <form class="login-for" method="post" action="cek_login.php">
               <input type="nope" id="nope" name="nope" placeholder="No telepone"/>
               <input type="password" id="password" name="password" placeholder="Password"/>
                 <button>Masuk</button>
-                <p class="message">Belum punya akun? <a href="">Daftar Sekarang</a> atau <a href="">Beranda</a></p>
+                <p class="message">Belum punya akun? <a href="register.php">Daftar Sekarang</a> atau <a href="index.php">Beranda</a></p>
               </form>
             </div>
           </div>	
-    
-    
-<style>@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+          <script src="https://cdn.rawgit.com/bungfrangki/efeksalju/2a7805c7/daun-berguguran.js" type="text/javascript"></script>	
 
+          <style>@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+
+body{
+    background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/RIAU_WEB.jpg/1200px-RIAU_WEB.jpg");
+    background-size : cover;
+}
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -87,5 +93,5 @@
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }</style>
-        </body>
+    </body>
 </html>
