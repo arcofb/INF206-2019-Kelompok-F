@@ -1,19 +1,14 @@
 <!DOCTYPE html>
-<html>
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<html lang="en">
 
 <head>
     <title>Fisherman Log</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -27,26 +22,34 @@
         </li>
     </ul>
     <div class="middle">
-        <h3 align="center">FISHERMAN LOG</h3>
-        <div class="row justify-content-left">
-            <div class="col-md-3">
-                <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header bg-transparent border-success">Date</div>
-                    <div class="card-body text-success">
-                        <h5 class="card-title">Card Title</h5>
-                    </div>
-                    <div class="card-footer bg-transparent border-success">
-                        <button type="button" class="btn btn-outline-secondary">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-1">
-                <div class="btn btn-light"><i class="fas fa-plus"></i></div>
+        <h1 align="center">FISHERMAN LOG</h1>
+        <h2><span class="badge badge-secondary">PENGELUARAN</span></h2>
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <table class="table table-dark table-striped table-bordered">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col" style="width:5%;">NO.</th>
+                            <th scope="col" style="width:30%;">JENIS IKAN</th>
+                            <th scope="col" style="width:20%;">BERAT</th>
+                            <th scope="col" style="width:25%;">HARGA</th>
+                            <th scope="col" style="width:20%;">PILIHAN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th> </th>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                            <td class="text-center">
+                                <button class="btn btn-secondary btn-sm">Edit</button>
+                                <button class="btn btn-secondary btn-sm">Hapus</button>
+                                <button class="btn btn-secondary btn-sm">Tambah</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -114,10 +117,9 @@
         }
 
         .left {
-            width: 250px;
+            width: 450px;
             /* border: 2px solid black; */
             /* background-color: white; */
-            height: 30px;
             margin: 10px;
             float: left;
             /* box-shadow: 7px 7px; */
