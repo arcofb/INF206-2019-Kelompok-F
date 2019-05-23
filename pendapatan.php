@@ -12,6 +12,39 @@
 </head>
 
 <body>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Pendapatan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="act_input_mahasiswa.php" method="POST">
+                        <div class="form-group">
+                            <label>Jenis Ikan</label>
+                            <input type="text" class="form-control" placeholder="Jenis Ikan" name="jenis" autofocus required>
+                        </div>
+                        <div class="form-group">
+                            <label>Berat</label>
+                            <input type="number" class="form-control" placeholder="Berat(Kg)" name="berat" autofocus required>
+                        </div>
+                        <div class="form-group">
+                            <label>Harga</label>
+                            <input type="text" class="form-control" placeholder="Harga(Rp)" name="harga" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <ul class="topnav">
         <li><a href="masuk.php">Home</a></li>
         <li><a href="rekapitulasi.php">Rekapitulasi</a></li>
@@ -32,20 +65,24 @@
                         <thead>
                             <tr class="text-center">
                                 <th scope="col" style="width:5%;">NO.</th>
-                                <th scope="col" style="width:50%;">JENIS PENDAPATAN</th>
-                                <th scope="col" style="width:25%;">HARGA</th>
+                                <th scope="col" style="width:35%;">JENIS IKAN</th>
+                                <th scope="col" style="width:20%;">BERAT</th>
+                                <th scope="col" style="width:20%;">HARGA</th>
                                 <th scope="col" style="width:20%;">PILIHAN</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <th> </th>
                                 <td> </td>
                                 <td> </td>
                                 <td> </td>
                                 <td class="text-center">
                                     <button class="btn btn-secondary btn-sm">Edit</button>
                                     <button class="btn btn-secondary btn-sm">Hapus</button>
-                                    <button class="btn btn-secondary btn-sm">Tambah</button>
+                                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong">
+                                        Tambah
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
