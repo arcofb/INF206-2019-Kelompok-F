@@ -1,3 +1,15 @@
+<?php 
+    session_start();
+    include 'koneksi.php';
+        if (isset($_POST['submit'])) {
+            $jenis = $_POST['jenis'];
+            $berat = $_POST['berat'];
+            $harga = $_POST['harga'];
+
+            $query = mysqli_query($koneksi,"INSERT INTO pendapatan (jenis_ikan, berat, harga) VALUES ('$jenis', '$berat', '$harga')");
+        }
+    $hasil1 = mysqli_query($koneksi,"SELECT * FROM pendapatan");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +35,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="act_input_mahasiswa.php" method="POST">
+                    <form action="pendapatan.php" method="post">
                         <div class="form-group">
                             <label>Jenis Ikan</label>
                             <input type="text" class="form-control" placeholder="Jenis Ikan" name="jenis" autofocus required>
@@ -36,11 +48,11 @@
                             <label>Harga</label>
                             <input type="text" class="form-control" placeholder="Harga(Rp)" name="harga" required>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" name="submit" type="submit">Simpan</button>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
         </div>
@@ -60,7 +72,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="row">
-
+                    <button type="button" align="rigth" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong">Tambah</button>
                     <table class="table table-dark table-striped table-bordered">
                         <thead>
                             <tr class="text-center">
@@ -72,19 +84,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th> </th>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td class="text-center">
-                                    <button class="btn btn-secondary btn-sm">Edit</button>
-                                    <button class="btn btn-secondary btn-sm">Hapus</button>
-                                    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong">
-                                        Tambah
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php if (mysqli_num_rows($hasil1)>0) {
+                                $no = 1;
+                                    while ($data = mysqli_fetch_array($hasil1)) { ?>
+                                        <tr>
+                                            <td><?php echo $no++; ?></td>
+                                            <td><?php echo $data['jenis_ikan']; ?></td>
+                                            <td><?php echo $data['berat']; ?></td>
+                                            <td><?php echo $data['harga']; ?></td>
+                                            <td class="text-center">
+                                                <button class="btn btn-secondary btn-sm">Edit</button>
+                                                <button class="btn btn-secondary btn-sm">Hapus</button>
+                                            </td>
+                                        </tr>
+                            <?php
+                                    }
+                                } ?>
                         </tbody>
                     </table>
                 </div>
