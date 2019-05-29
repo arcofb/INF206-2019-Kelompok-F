@@ -24,18 +24,12 @@
         <h3 align="center">FISHERMAN LOG</h3>
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <form>
-                    <div class="form-group">
-                        <label for="exampleInputDate">Tanggal</label>
-                        <input type="date" class="form-control" id="exampleInputDate" placeholder="DD/MM/YYY">
-
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputtitle">Judul Log</label>
-                        <input type="title" class="form-control" id="exampleInputtitle" placeholder="Judul">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </form>
+                <a href="pendapatan.php?id=<?php echo $_GET['id']; ?>">
+                    <button type="button" class="btn btn-secondary btn-lg btn-block">PENDAPATAN</button>
+                </a><br>
+                <a href="pengeluaran.php?id=<?php echo $_GET['id']; ?>">
+                    <button type="button" class="btn btn-secondary btn-lg btn-block">PENGELUARAN</button>
+                </a>
             </div>
         </div>
 
@@ -109,6 +103,7 @@
             /* border: 2px solid black; */
             /* background-color: white; */
             margin: 10px;
+            float: left;
             /* box-shadow: 7px 7px; */
             /* background-color:  */
         }
