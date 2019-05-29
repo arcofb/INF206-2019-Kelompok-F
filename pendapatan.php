@@ -1,14 +1,14 @@
-<?php 
-    session_start();
-    include 'koneksi.php';
-        if (isset($_POST['submit'])) {
-            $jenis = $_POST['jenis'];
-            $berat = $_POST['berat'];
-            $harga = $_POST['harga'];
+<?php
+session_start();
+include 'koneksi.php';
+$id_rekap = $_GET['id'];
+if (isset($_POST['submit'])) {
+    $jenis = $_POST['jenis'];
+    $berat = $_POST['berat'];
+    $harga = $_POST['harga'];
 
-            $query = mysqli_query($koneksi,"INSERT INTO pendapatan (jenis_ikan, berat, harga) VALUES ('$jenis', '$berat', '$harga')");
-        }
-    $hasil1 = mysqli_query($koneksi,"SELECT * FROM pendapatan");
+    mysqli_query($koneksi, "INSERT INTO pendapatan (id_rekapitulasi, jenis_ikan, berat, harga) VALUES ('$id_rekap', '$jenis', '$berat', '$harga')");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +35,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="pendapatan.php" method="post">
+                    <form action="pendapatan.php?id=<?php echo $id_rekap; ?>" method="post">
                         <div class="form-group">
                             <label>Jenis Ikan</label>
                             <input type="text" class="form-control" placeholder="Jenis Ikan" name="jenis" autofocus required>
@@ -84,22 +84,31 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (mysqli_num_rows($hasil1)>0) {
-                                $no = 1;
-                                    while ($data = mysqli_fetch_array($hasil1)) { ?>
-                                        <tr>
-                                            <td><?php echo $no++; ?></td>
-                                            <td><?php echo $data['jenis_ikan']; ?></td>
-                                            <td><?php echo $data['berat']; ?></td>
-                                            <td><?php echo $data['harga']; ?></td>
-                                            <td class="text-center">
-                                                <button class="btn btn-secondary btn-sm">Edit</button>
-                                                <button class="btn btn-secondary btn-sm">Hapus</button>
-                                            </td>
-                                        </tr>
                             <?php
-                                    }
-                                } ?>
+                            $hasil1 = $koneksi->query("SELECT * FROM pendapatan WHERE id_rekapitulasi = '$id_rekap'");
+                            ?>
+
+                            <?php $total = 0; ?>
+                            <?php if (mysqli_num_rows($hasil1) > 0) {
+                                $no = 1;
+                                while ($data = $hasil1->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td><?php echo $no++; ?></td>
+                                        <td><?php echo $data['jenis_ikan']; ?></td>
+                                        <td><?php echo $data['berat']; ?></td>
+                                        <td><?php echo $data['harga']; ?></td>
+                                        <td class="text-center">
+                                            <button class="btn btn-secondary btn-sm">Edit</button>
+                                            <button class="btn btn-secondary btn-sm">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    $total += $data['harga'];
+                                }
+                            } ?>
+                            <h5><?php if ($total < 0) {
+                                    $total;
+                                } ?></h5>
                         </tbody>
                     </table>
                 </div>
