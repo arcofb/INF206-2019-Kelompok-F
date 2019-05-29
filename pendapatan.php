@@ -1,3 +1,15 @@
+<?php
+session_start();
+include 'koneksi.php';
+$id_rekap = $_GET['id'];
+if (isset($_POST['submit'])) {
+    $jenis = $_POST['jenis'];
+    $berat = $_POST['berat'];
+    $harga = $_POST['harga'];
+
+    mysqli_query($koneksi, "INSERT INTO pendapatan (id_rekapitulasi, jenis_ikan, berat, harga) VALUES ('$id_rekap', '$jenis', '$berat', '$harga')");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +24,39 @@
 </head>
 
 <body>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Pendapatan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="pendapatan.php?id=<?php echo $id_rekap; ?>" method="post">
+                        <div class="form-group">
+                            <label>Jenis Ikan</label>
+                            <input type="text" class="form-control" placeholder="Jenis Ikan" name="jenis" autofocus required>
+                        </div>
+                        <div class="form-group">
+                            <label>Berat</label>
+                            <input type="number" class="form-control" placeholder="Berat(Kg)" name="berat" autofocus required>
+                        </div>
+                        <div class="form-group">
+                            <label>Harga</label>
+                            <input type="text" class="form-control" placeholder="Harga(Rp)" name="harga" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" name="submit" type="submit">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <ul class="topnav">
         <li><a href="masuk.php">Home</a></li>
         <li><a href="rekapitulasi.php">Rekapitulasi</a></li>
@@ -27,27 +72,43 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="row">
-
+                    <button type="button" align="rigth" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong">Tambah</button>
                     <table class="table table-dark table-striped table-bordered">
                         <thead>
                             <tr class="text-center">
                                 <th scope="col" style="width:5%;">NO.</th>
-                                <th scope="col" style="width:50%;">JENIS PENDAPATAN</th>
-                                <th scope="col" style="width:25%;">HARGA</th>
+                                <th scope="col" style="width:35%;">JENIS IKAN</th>
+                                <th scope="col" style="width:20%;">BERAT</th>
+                                <th scope="col" style="width:20%;">HARGA</th>
                                 <th scope="col" style="width:20%;">PILIHAN</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td class="text-center">
-                                    <button class="btn btn-secondary btn-sm">Edit</button>
-                                    <button class="btn btn-secondary btn-sm">Hapus</button>
-                                    <button class="btn btn-secondary btn-sm">Tambah</button>
-                                </td>
-                            </tr>
+                            <?php
+                            $hasil1 = $koneksi->query("SELECT * FROM pendapatan WHERE id_rekapitulasi = '$id_rekap'");
+                            ?>
+
+                            <?php $total = 0; ?>
+                            <?php if (mysqli_num_rows($hasil1) > 0) {
+                                $no = 1;
+                                while ($data = $hasil1->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td><?php echo $no++; ?></td>
+                                        <td><?php echo $data['jenis_ikan']; ?></td>
+                                        <td><?php echo $data['berat']; ?></td>
+                                        <td><?php echo $data['harga']; ?></td>
+                                        <td class="text-center">
+                                            <button class="btn btn-secondary btn-sm">Edit</button>
+                                            <button class="btn btn-secondary btn-sm">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    $total += $data['harga'];
+                                }
+                            } ?>
+                            <h5><?php if ($total < 0) {
+                                    $total;
+                                } ?></h5>
                         </tbody>
                     </table>
                 </div>

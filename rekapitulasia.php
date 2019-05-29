@@ -1,3 +1,22 @@
+<?php
+include "koneksi.php";
+if (isset($_POST['submit'])) {
+    $tanggal = $_POST['tanggal'];
+    $judul = $_POST['judul'];
+
+    $query = "INSERT INTO rekapitulasi(tanggal,judul) VALUES ('$tanggal','$judul')";
+    $hasil = mysqli_query($koneksi, $query);
+
+    $ambil = $koneksi->query("SELECT * FROM rekapitulasi");
+    $id_rekap = 0;
+    while ($pecah = $ambil->fetch_assoc()) {
+        $id_rekap = $pecah['ID'];
+    }
+
+    header("Location: rekapitulasib.php?id=$id_rekap");
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -24,17 +43,16 @@
         <h3 align="center">FISHERMAN LOG</h3>
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <form>
+                <form action="rekapitulasia.php" method="POST">
                     <div class="form-group">
                         <label for="exampleInputDate">Tanggal</label>
-                        <input type="date" class="form-control" id="exampleInputDate" placeholder="DD/MM/YYY">
-
+                        <input name="tanggal" type="date" class="form-control" id="exampleInputDate">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputtitle">Judul Log</label>
-                        <input type="title" class="form-control" id="exampleInputtitle" placeholder="Judul">
+                        <input name="judul" type="text" class="form-control" id="exampleInputtitle" placeholder="Judul">
                     </div>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button name="submit" type="submit" class="btn btn-primary">Simpan</button>
                 </form>
             </div>
         </div>
