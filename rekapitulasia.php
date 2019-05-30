@@ -1,62 +1,35 @@
 <?php
-session_start();
-include 'koneksi.php';
-$id_rekap = $_GET['id'];
+include "koneksi.php";
 if (isset($_POST['submit'])) {
-    $jenis = $_POST['jenis'];
-    $berat = $_POST['berat'];
-    $harga = $_POST['harga'];
+    $tanggal = $_POST['tanggal'];
+    $judul = $_POST['judul'];
 
-    mysqli_query($koneksi, "INSERT INTO pendapatan (id_rekapitulasi, jenis_ikan, berat, harga) VALUES ('$id_rekap', '$jenis', '$berat', '$harga')");
+    $query = "INSERT INTO rekapitulasi(tanggal,judul) VALUES ('$tanggal','$judul')";
+    $hasil = mysqli_query($koneksi, $query);
+
+    $ambil = $koneksi->query("SELECT * FROM rekapitulasi");
+    $id_rekap = 0;
+    while ($pecah = $ambil->fetch_assoc()) {
+        $id_rekap = $pecah['ID'];
+    }
+
+    header("Location: rekapitulasib.php?id=$id_rekap");
 }
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <head>
     <title>Fisherman Log</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Pendapatan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="pendapatan.php?id=<?php echo $id_rekap; ?>" method="post">
-                        <div class="form-group">
-                            <label>Jenis Ikan</label>
-                            <input type="text" class="form-control" placeholder="Jenis Ikan" name="jenis" autofocus required>
-                        </div>
-                        <div class="form-group">
-                            <label>Berat</label>
-                            <input type="number" class="form-control" placeholder="Berat(Kg)" name="berat" autofocus required>
-                        </div>
-                        <div class="form-group">
-                            <label>Harga</label>
-                            <input type="text" class="form-control" placeholder="Harga(Rp)" name="harga" required>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button class="btn btn-primary" name="submit" type="submit">Simpan</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     <ul class="topnav">
         <li><a href="masuk.php">Home</a></li>
         <li><a href="rekapitulasi.php">Rekapitulasi</a></li>
@@ -67,53 +40,23 @@ if (isset($_POST['submit'])) {
         </li>
     </ul>
     <div class="middle">
-        <h1 align="center">FISHERMAN LOG</h1>
-        <h2><span class="badge badge-secondary">PENDAPATAN</span></h2>
+        <h3 align="center">FISHERMAN LOG</h3>
         <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="row">
-                    <button type="button" align="rigth" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong">Tambah</button>
-                    <table class="table table-dark table-striped table-bordered">
-                        <thead>
-                            <tr class="text-center">
-                                <th scope="col" style="width:5%;">NO.</th>
-                                <th scope="col" style="width:35%;">JENIS IKAN</th>
-                                <th scope="col" style="width:20%;">BERAT</th>
-                                <th scope="col" style="width:20%;">HARGA</th>
-                                <th scope="col" style="width:20%;">PILIHAN</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $hasil1 = $koneksi->query("SELECT * FROM pendapatan WHERE id_rekapitulasi = '$id_rekap'");
-                            ?>
-
-                            <?php $total = 0; ?>
-                            <?php if (mysqli_num_rows($hasil1) > 0) {
-                                $no = 1;
-                                while ($data = $hasil1->fetch_assoc()) { ?>
-                                    <tr>
-                                        <td><?php echo $no++; ?></td>
-                                        <td><?php echo $data['jenis_ikan']; ?></td>
-                                        <td><?php echo $data['berat']; ?></td>
-                                        <td><?php echo $data['harga']; ?></td>
-                                        <td class="text-center">
-                                            <button class="btn btn-secondary btn-sm">Edit</button>
-                                            <button class="btn btn-secondary btn-sm">Hapus</button>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                    $total += $data['harga'];
-                                }
-                            } ?>
-                            <h5><?php if ($total < 0) {
-                                    $total;
-                                } ?></h5>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="col-md-4">
+                <form action="rekapitulasia.php" method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputDate">Tanggal</label>
+                        <input name="tanggal" type="date" class="form-control" id="exampleInputDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputtitle">Judul Log</label>
+                        <input name="judul" type="text" class="form-control" id="exampleInputtitle" placeholder="Judul">
+                    </div>
+                    <button name="submit" type="submit" class="btn btn-primary">Simpan</button>
+                </form>
             </div>
         </div>
+
     </div>
     <div class="footer">
         <p align="center"><a href="http://facebook.com"><img src="images/fb.png"></a></p>
@@ -184,7 +127,6 @@ if (isset($_POST['submit'])) {
             /* border: 2px solid black; */
             /* background-color: white; */
             margin: 10px;
-            float: left;
             /* box-shadow: 7px 7px; */
             /* background-color:  */
         }

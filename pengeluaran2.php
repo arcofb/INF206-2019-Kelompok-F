@@ -4,10 +4,9 @@ include 'koneksi.php';
 $id_rekap = $_GET['id'];
 if (isset($_POST['submit'])) {
     $jenis = $_POST['jenis'];
-    $berat = $_POST['berat'];
     $harga = $_POST['harga'];
 
-    mysqli_query($koneksi, "INSERT INTO pendapatan (id_rekapitulasi, jenis_ikan, berat, harga) VALUES ('$id_rekap', '$jenis', '$berat', '$harga')");
+    mysqli_query($koneksi, "INSERT INTO pengeluaran (id_rekapitulasi, jenispegeluaran, harga) VALUES ('$id_rekap', '$jenis', '$harga')");
 }
 ?>
 <!DOCTYPE html>
@@ -17,10 +16,14 @@ if (isset($_POST['submit'])) {
     <title>Fisherman Log</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -29,20 +32,16 @@ if (isset($_POST['submit'])) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Pendapatan</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Pengeluaran</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="pendapatan.php?id=<?php echo $id_rekap; ?>" method="post">
+                    <form action="pengeluaran.php" method="post">
                         <div class="form-group">
-                            <label>Jenis Ikan</label>
-                            <input type="text" class="form-control" placeholder="Jenis Ikan" name="jenis" autofocus required>
-                        </div>
-                        <div class="form-group">
-                            <label>Berat</label>
-                            <input type="number" class="form-control" placeholder="Berat(Kg)" name="berat" autofocus required>
+                            <label>Jenis Pengeluaran</label>
+                            <input type="text" class="form-control" placeholder="Jenis Pengeluaran" name="jenis" autofocus required>
                         </div>
                         <div class="form-group">
                             <label>Harga</label>
@@ -57,6 +56,7 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
     </div>
+
     <ul class="topnav">
         <li><a href="masuk.php">Home</a></li>
         <li><a href="rekapitulasi.php">Rekapitulasi</a></li>
@@ -68,7 +68,8 @@ if (isset($_POST['submit'])) {
     </ul>
     <div class="middle">
         <h1 align="center">FISHERMAN LOG</h1>
-        <h2><span class="badge badge-secondary">PENDAPATAN</span></h2>
+        <h2><span class="badge badge-secondary">PENGELUARAN</span></h2>
+
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="row">
@@ -77,25 +78,22 @@ if (isset($_POST['submit'])) {
                         <thead>
                             <tr class="text-center">
                                 <th scope="col" style="width:5%;">NO.</th>
-                                <th scope="col" style="width:35%;">JENIS IKAN</th>
-                                <th scope="col" style="width:20%;">BERAT</th>
-                                <th scope="col" style="width:20%;">HARGA</th>
+                                <th scope="col" style="width:50%;">JENIS PENGELUARAN</th>
+                                <th scope="col" style="width:25%;">HARGA</th>
                                 <th scope="col" style="width:20%;">PILIHAN</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $hasil1 = $koneksi->query("SELECT * FROM pendapatan WHERE id_rekapitulasi = '$id_rekap'");
+                            $hasil1 = $koneksi->query("SELECT * FROM pengeluaran WHERE id_rekapitulasi = '$id_rekap'");
                             ?>
-
-                            <?php $total = 0; ?>
                             <?php if (mysqli_num_rows($hasil1) > 0) {
                                 $no = 1;
+                                $total = 0;
                                 while ($data = $hasil1->fetch_assoc()) { ?>
                                     <tr>
                                         <td><?php echo $no++; ?></td>
-                                        <td><?php echo $data['jenis_ikan']; ?></td>
-                                        <td><?php echo $data['berat']; ?></td>
+                                        <td><?php echo $data['jenispegeluaran']; ?></td>
                                         <td><?php echo $data['harga']; ?></td>
                                         <td class="text-center">
                                             <button class="btn btn-secondary btn-sm">Edit</button>
@@ -106,20 +104,18 @@ if (isset($_POST['submit'])) {
                                     $total += $data['harga'];
                                 }
                             } ?>
-                            <h5><?php if ($total < 0) {
-                                    $total;
-                                } ?></h5>
+                            <h5><?php echo $total; ?></h5>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="footer">
         <p align="center"><a href="http://facebook.com"><img src="images/fb.png"></a></p>
         <p align="center"><a href="http://facebook.com">Follow Us on Facebook</a></p>
     </div>
-
     <style>
         body {
             background-image: url('images/1.jpg');
