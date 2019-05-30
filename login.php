@@ -6,7 +6,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="css/blog.css">
-        <script src="js/style.js"></script>
     </head>
     <body>
 
@@ -21,14 +20,11 @@
               </form>
             </div>
           </div>	
-         
-
           <style>@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-
 body{
-    background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/RIAU_WEB.jpg/1200px-RIAU_WEB.jpg");
-    background-size : cover;
+  background-image: url('images/1.jpg');
+  background-size : cover;
 }
 .login-page {
   width: 360px;
@@ -93,5 +89,5 @@ body{
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }</style>
-    </body>
+        </body>
 </html>
