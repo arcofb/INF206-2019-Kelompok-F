@@ -13,32 +13,52 @@
     <a href="javascript:void(0);" onclick="myFunction()">☰</a>
   </li>
 </ul>
-<div class="middle"><h3 align="center">FISHERMAN LOG</h3>
+<div class="middle"><h1 align="center">Welcome to Fisherman Log</h1>
     <div class="left">
-				
-    </div>
+		<p>Nelayan adalah istilah bagi orang-orang yang sehari-harinya bekerja menangkap ikan atau biota lainnya yang hidup di dasar, kolom maupun permukaan perairan. Perairan yang menjadi daerah aktivitas 
+			 nelayan ini dapat merupakan perairan tawar, payau maupun laut. </p>
+		<p>Dalam fisherman log, kamu dapat menghitung pendapatan atau pengeluaran kamu selama berlayar. Bukan itu saja kamu juga dapat menyimpan data pelayaran kamu dan tentunya data data kamu akan aman.</P>
+		<p>Terdapat fitur-fitur yang dapat membantu para nelayan agar mudah memperhitungkan semuanya, yaitu fitur rekapitulasi dan fitur kalkulator. Dimana Fitur rekapitulasi ini bisa membuat data rekapitulasi baru,
+			 meriview data rekapitulasi yang sudah ada juga mengedit data rekapitulasi dan fifitur kalkulator nelayan bisa mencari pengahasilan kotor dan bersih dalam berlayar, 
+			 nmengetahui gaji kru kapan juga mengetahui rugi selama berlayar</p>
+
+		</div>
     <div class="right">
-    
+		<img src="images/home.jpg">
     </div>
 </div>
 <div class="footer">
-				<p align="center"><a href="http://facebook.com"><img src="images/fb.png"></a></p>
-				<p align="center"><a href="http://facebook.com">Follow Us on Facebook</a></p>				
+				<p align="center"><a href="https://web.facebook.com/Fishermanlog/"><img src="images/fb.png"></a></p>
+				<p align="center"><a href="https://web.facebook.com/Fishermanlog/">Follow Us on Facebook</a></p>				
 		</div>	
 <style>
 
 body{
 	background-image: url('images/1.jpg');
 	background-size: cover;
+	font-family: sans-serif;
+}
+p{
+	margin-bottom	: 20px;
+	line-height		: 1.5em;
+	color: white;
+}
+a{
+	text-decoration	: none;
+	color			:white;
+	font-size: 15px;
+	
 }
 
-
+a:hover{
+	color	: orange;
+}
 
 .footer{
 		clear	: both;
 		border	: 1px solid #dedede;
 		padding		: 10px;
-	margin		: 10px;
+	  margin		: 10px;
 		background	: orange;
 	
 	}
@@ -61,22 +81,22 @@ body{
 	width	: 1080px;
   height : 500px;
 	margin		: 20px auto;
-	background:	
-	rgba(0,0,0, 0.4);
+	background:	rgba(0,0,0, 0.4);
 	overflow	: hidden;
 	padding		: 10px;
 	
 }
 
 .right{
-		width	: 250px;
+		width	: 310px;
 		padding	: 10px;
 		margin	: 10px;
-		float	: left;
+		float	: right;
 	}
   .right img{
 			max-width	: 100%;
-			height		: auto;
+			height		: 420px;
+			width			: 310px;
 		}
 
 .left{
