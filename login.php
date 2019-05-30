@@ -21,7 +21,7 @@
               </form>
             </div>
           </div>	
-          <script src="https://cdn.rawgit.com/bungfrangki/efeksalju/2a7805c7/daun-berguguran.js" type="text/javascript"></script>	
+         
 
           <style>@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
