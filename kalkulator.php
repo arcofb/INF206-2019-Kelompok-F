@@ -14,6 +14,36 @@
     <a href="javascript:void(0);" onclick="myFunction()">☰</a>
   </li>
 </ul>
+<script type="text/javascript">
+      function valid(kalkulator){
+        if (kalkulator.bil1.value == ""){
+          alert("Modal tidak boleh kosong");
+		  kalkulator.bil1.focus();
+          return (false);
+        }
+		if (kalkulator.bil2.value == ""){
+          alert("Pendapatan tidak boleh kosong");
+		  kalkulator.bil2.focus();
+          return (false);
+        }
+		if (kalkulator.bil3.value == ""){
+          alert("Pengeluaran tidak boleh kosong");
+		  kalkulator.bil3.focus();
+          return (false);
+        }
+		if (kalkulator.bil4.value == ""){
+          alert("Persen Gaji Anda tidak boleh kosong");
+		  kalkulator.bil4.focus();
+          return (false);
+        }
+		if (kalkulator.bil5.value == ""){
+          alert("Jumlah Kru tidak boleh kosong");
+		  kalkulator.bil5.focus();
+          return (false);
+        }
+      return (true);
+		}
+</script>
 	<?php 
 	if(isset($_POST['hitung'])){
 		$bil1 = $_POST['bil1']; //modal
@@ -41,7 +71,7 @@
 	<div class="middle">
 	<div class="kalkulator">
 		<h2 class="judul">KALKULATOR</h2>
-		<form method="post" action="">
+		<form method="post" action="" onsubmit="return valid(this)">
 		<input type="text" name="bil1" min="0" class="bil" autocomplete="off" placeholder="Masukkan Harga Sewa Kapal(Rp.)">
 			<input type="text" name="bil2" min="0" class="bil" autocomplete="off" placeholder="Masukkan Jumlah Pendapatan(Rp.)">
 			<input type="text" name="bil3" min="0" class="bil"  autocomplete="off" placeholder="Masukkan Jumlah Pengeluaran(Rp.)">
