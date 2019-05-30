@@ -3,6 +3,46 @@
 <head>
 	<title>Kalkulator</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script language="javascript">
+function getkey(e)
+{
+if (window.event)
+   return window.event.keyCode;
+else if (e)
+   return e.which;
+else
+   return null;
+}
+function goodchars(e, goods, field)
+{
+var key, keychar;
+key = getkey(e);
+if (key == null) return true;
+ 
+keychar = String.fromCharCode(key);
+keychar = keychar.toLowerCase();
+goods = goods.toLowerCase();
+ 
+// check goodkeys
+if (goods.indexOf(keychar) != -1)
+    return true;
+// control keys
+if ( key==null || key==0 || key==8 || key==9 || key==27 )
+   return true;
+    
+if (key == 13) {
+    var i;
+    for (i = 0; i < field.form.elements.length; i++)
+        if (field == field.form.elements[i])
+            break;
+    i = (i + 1) % field.form.elements.length;
+    field.form.elements[i].focus();
+    return false;
+    };
+// else return false
+return false;
+}
+</script>
 </head>
 <body>
 <ul class="topnav">
@@ -72,11 +112,11 @@
 	<div class="kalkulator">
 		<h2 class="judul">KALKULATOR</h2>
 		<form method="post" action="" onsubmit="return valid(this)">
-		<input type="text" name="bil1" min="0" class="bil" autocomplete="off" placeholder="Masukkan Harga Sewa Kapal(Rp.)">
-			<input type="text" name="bil2" min="0" class="bil" autocomplete="off" placeholder="Masukkan Jumlah Pendapatan(Rp.)">
-			<input type="text" name="bil3" min="0" class="bil"  autocomplete="off" placeholder="Masukkan Jumlah Pengeluaran(Rp.)">
-            <input type="text" name="bil4" min="0" class="bil" autocomplete="off" placeholder="Masukkan Persen Gaji yang Anda ambil(%)"> 
-            <input type="text" name="bil5" min="0" class="bil" autocomplete="off" placeholder="Masukkan Jumlah Kru Kapal Anda">
+		<input type="text" name="bil1" min="0" class="bil" autocomplete="off" placeholder="Masukkan Harga Sewa Kapal(Rp.)" onKeyPress="return goodchars(event,'0123456789',this)">
+			<input type="text" name="bil2" min="0" class="bil" autocomplete="off" placeholder="Masukkan Jumlah Pendapatan(Rp.)" onKeyPress="return goodchars(event,'0123456789',this)">
+			<input type="text" name="bil3" min="0" class="bil"  autocomplete="off" placeholder="Masukkan Jumlah Pengeluaran(Rp.)" onKeyPress="return goodchars(event,'0123456789',this)">
+            <input type="text" name="bil4" min="0" class="bil" autocomplete="off" placeholder="Masukkan Persen Gaji yang Anda ambil(%)" onKeyPress="return goodchars(event,'0123456789',this)"> 
+            <input type="text" name="bil5" min="0" class="bil" autocomplete="off" placeholder="Masukkan Jumlah Kru Kapal Anda" onKeyPress="return goodchars(event,'0123456789',this)">
 			<input type="submit" name="hitung" value="Hitung" class="tombol">	
 		</form>
 		
