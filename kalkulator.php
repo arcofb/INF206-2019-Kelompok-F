@@ -106,7 +106,21 @@
 			?>" class="bil">
 		<?php }else{ ?>
 			<input type="text" value="0" class="bil">
-		<?php } ?>	
+		<?php } ?>
+		<a href="tampilkan.php"><input type="submit" value="Tampilkan Data" class="tombol"></a>
+		<?php
+		if (isset($_POST['hitung'])) {
+			
+			include "koneksi.php";
+			if($gbos>$bil1){
+				mysqli_query($koneksi, "INSERT INTO kalkulator (pKotor, pBersih, pModal, pGaji, pKru, pUntung) VALUES ('$p_pkotor', '$p_pbersih', '$p_bil1', '$p_gbos', '$p_gkru', '$p_untung')");
+			}else if($bil1>$gbos){
+				mysqli_query($koneksi, "INSERT INTO kalkulator (pKotor, pBersih, pModal, pGaji, pKru, pRugi) VALUES ('$p_pkotor', '$p_pbersih', '$p_bil1', '$p_gbos', '$p_gkru', '$p_rugi')");
+			}else{
+				mysqli_query($koneksi, "INSERT INTO kalkulator (pKotor, pBersih, pModal, pGaji, pKru) VALUES ('$p_pkotor', '$p_pbersih', '$p_bil1', '$p_gbos', '$p_gkru')");
+            }
+        }
+		?>
 	</div>
 	
 		</div>
