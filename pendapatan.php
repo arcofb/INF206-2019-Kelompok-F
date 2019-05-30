@@ -1,22 +1,62 @@
+<?php
+session_start();
+include 'koneksi.php';
+$id_rekap = $_GET['id'];
+if (isset($_POST['submit'])) {
+    $jenis = $_POST['jenis'];
+    $berat = $_POST['berat'];
+    $harga = $_POST['harga'];
+
+    mysqli_query($koneksi, "INSERT INTO pendapatan (id_rekapitulasi, jenis_ikan, berat, harga) VALUES ('$id_rekap', '$jenis', '$berat', '$harga')");
+}
+?>
 <!DOCTYPE html>
-<html>
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<html lang="en">
 
 <head>
     <title>Fisherman Log</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Pendapatan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="pendapatan.php?id=<?php echo $id_rekap; ?>" method="post">
+                        <div class="form-group">
+                            <label>Jenis Ikan</label>
+                            <input type="text" class="form-control" placeholder="Jenis Ikan" name="jenis" autofocus required>
+                        </div>
+                        <div class="form-group">
+                            <label>Berat</label>
+                            <input type="number" class="form-control" placeholder="Berat(Kg)" name="berat" autofocus required>
+                        </div>
+                        <div class="form-group">
+                            <label>Harga</label>
+                            <input type="text" class="form-control" placeholder="Harga(Rp)" name="harga" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" name="submit" type="submit">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <ul class="topnav">
         <li><a href="masuk.php">Home</a></li>
         <li><a href="rekapitulasi.php">Rekapitulasi</a></li>
@@ -27,26 +67,51 @@
         </li>
     </ul>
     <div class="middle">
-        <h3 align="center">FISHERMAN LOG</h3>
-        <div class="row justify-content-left">
-            <div class="col-md-3">
-                <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header bg-transparent border-success">Date</div>
-                    <div class="card-body text-success">
-                        <h5 class="card-title">Card Title</h5>
-                    </div>
-                    <div class="card-footer bg-transparent border-success">
-                        <button type="button" class="btn btn-outline-secondary">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </div>
+        <h1 align="center">FISHERMAN LOG</h1>
+        <h2><span class="badge badge-secondary">PENDAPATAN</span></h2>
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="row">
+                    <button type="button" align="rigth" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong">Tambah</button>
+                    <table class="table table-dark table-striped table-bordered">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col" style="width:5%;">NO.</th>
+                                <th scope="col" style="width:35%;">JENIS IKAN</th>
+                                <th scope="col" style="width:20%;">BERAT</th>
+                                <th scope="col" style="width:20%;">HARGA</th>
+                                <th scope="col" style="width:20%;">PILIHAN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $hasil1 = $koneksi->query("SELECT * FROM pendapatan WHERE id_rekapitulasi = '$id_rekap'");
+                            ?>
+
+                            <?php $total = 0; ?>
+                            <?php if (mysqli_num_rows($hasil1) > 0) {
+                                $no = 1;
+                                while ($data = $hasil1->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td><?php echo $no++; ?></td>
+                                        <td><?php echo $data['jenis_ikan']; ?></td>
+                                        <td><?php echo $data['berat']; ?></td>
+                                        <td><?php echo $data['harga']; ?></td>
+                                        <td class="text-center">
+                                            <button class="btn btn-secondary btn-sm">Edit</button>
+                                            <button class="btn btn-secondary btn-sm">Hapus</button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    $total += $data['harga'];
+                                }
+                            } ?>
+                            <h5><?php if ($total < 0) {
+                                    $total;
+                                } ?></h5>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            <div class="col-md-1">
-                <div class="btn btn-light"><i class="fas fa-plus"></i></div>
             </div>
         </div>
     </div>
@@ -54,6 +119,7 @@
         <p align="center"><a href="http://facebook.com"><img src="images/fb.png"></a></p>
         <p align="center"><a href="http://facebook.com">Follow Us on Facebook</a></p>
     </div>
+
     <style>
         body {
             background-image: url('images/1.jpg');
@@ -114,10 +180,9 @@
         }
 
         .left {
-            width: 250px;
+            width: 450px;
             /* border: 2px solid black; */
             /* background-color: white; */
-            height: 30px;
             margin: 10px;
             float: left;
             /* box-shadow: 7px 7px; */

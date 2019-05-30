@@ -1,3 +1,22 @@
+<?php
+include "koneksi.php";
+if (isset($_POST['submit'])) {
+    $tanggal = $_POST['tanggal'];
+    $judul = $_POST['judul'];
+
+    $query = "INSERT INTO rekapitulasi(tanggal,judul) VALUES ('$tanggal','$judul')";
+    $hasil = mysqli_query($koneksi, $query);
+
+    $ambil = $koneksi->query("SELECT * FROM rekapitulasi");
+    $id_rekap = 0;
+    while ($pecah = $ambil->fetch_assoc()) {
+        $id_rekap = $pecah['ID'];
+    }
+
+    header("Location: rekapitulasib.php?id=$id_rekap");
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -5,12 +24,6 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
 <head>
     <title>Fisherman Log</title>
@@ -28,32 +41,28 @@
     </ul>
     <div class="middle">
         <h3 align="center">FISHERMAN LOG</h3>
-        <div class="row justify-content-left">
-            <div class="col-md-3">
-                <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header bg-transparent border-success">Date</div>
-                    <div class="card-body text-success">
-                        <h5 class="card-title">Card Title</h5>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <form action="rekapitulasia.php" method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputDate">Tanggal</label>
+                        <input name="tanggal" type="date" class="form-control" id="exampleInputDate">
                     </div>
-                    <div class="card-footer bg-transparent border-success">
-                        <button type="button" class="btn btn-outline-secondary">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary">
-                            <i class="fas fa-edit"></i>
-                        </button>
+                    <div class="form-group">
+                        <label for="exampleInputtitle">Judul Log</label>
+                        <input name="judul" type="text" class="form-control" id="exampleInputtitle" placeholder="Judul">
                     </div>
-                </div>
-            </div>
-            <div class="col-md-1">
-                <div class="btn btn-light"><i class="fas fa-plus"></i></div>
+                    <button name="submit" type="submit" class="btn btn-primary">Simpan</button>
+                </form>
             </div>
         </div>
+
     </div>
     <div class="footer">
         <p align="center"><a href="http://facebook.com"><img src="images/fb.png"></a></p>
         <p align="center"><a href="http://facebook.com">Follow Us on Facebook</a></p>
     </div>
+
     <style>
         body {
             background-image: url('images/1.jpg');
@@ -114,12 +123,10 @@
         }
 
         .left {
-            width: 250px;
+            width: 450px;
             /* border: 2px solid black; */
             /* background-color: white; */
-            height: 30px;
             margin: 10px;
-            float: left;
             /* box-shadow: 7px 7px; */
             /* background-color:  */
         }

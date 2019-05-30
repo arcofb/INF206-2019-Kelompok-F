@@ -4,6 +4,7 @@
         <title></title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="css/blog.css">
     </head>
     <body>
 
@@ -42,7 +43,7 @@
 </script>
         <div class="login-page">
             <div class="form">
-              <form class="register" method="post" action="" onsubmit="return valid(this)">
+              <form class="register" method="post" action="data.php" onsubmit="return valid(this)">
                 <h2>Pendaftaran</h2>
                 <input type="text" id="nama" name="nama" placeholder="Nama"/>
                 <input type="nope" id="nope" name="nope" placeholder="No telepone"/>
@@ -50,28 +51,23 @@
                 <input type="password" id="password" name="password" placeholder="Password"/>
                 <input type="password1" id="password1" name="password1" placeholder="Konfirmasi Password"/>
                 <button type="submit" >Daftar</button>
-                <p class="message">Sudah punya akun? <a href="">Masuk</a> atau <a href="">Beranda</a></p>
+                <p class="message">Sudah punya akun? <a href="login.php">Masuk</a> atau <a href="index.php">Beranda</a></p>
               </form>
             </div>
           </div>
-    
+          <script src="https://cdn.rawgit.com/bungfrangki/efeksalju/2a7805c7/daun-berguguran.js" type="text/javascript"></script>	
    
     <style>@import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
+body{
+	background-image: url('images/1.jpg');
+	background-size: cover;
+}
 
 .login-page {
   width: 360px;
   padding: 8% 0 0;
   margin: auto;
 }
-/* .login-page{
-  max-width	: 1080px;
-	margin		: 20px auto;
-	background:	
-	rgba(0,0,0, 0.4);
-	overflow	: hidden;
-	padding		: 10px;
-} */
 .form {
   position: relative;
   z-index: 1;
