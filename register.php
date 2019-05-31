@@ -49,14 +49,12 @@
                 <input type="nope" id="nope" name="nope" placeholder="No telepone"/>
                 <input type="alamat" id="alamat" name="alamat" placeholder="Alamat"/>
                 <input type="password" id="password" name="password" placeholder="Password"/>
-                <input type="password1" id="password1" name="password1" placeholder="Konfirmasi Password"/>
+                <input type="password" id="password1" name="password1" placeholder="Konfirmasi Password"/>
                 <button type="submit" >Daftar</button>
                 <p class="message">Sudah punya akun? <a href="login.php">Masuk</a> atau <a href="index.php">Beranda</a></p>
               </form>
             </div>
-          </div>
-          <script src="https://cdn.rawgit.com/bungfrangki/efeksalju/2a7805c7/daun-berguguran.js" type="text/javascript"></script>	
-   
+          </div> 
     <style>@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 body{
 	background-image: url('images/1.jpg');
